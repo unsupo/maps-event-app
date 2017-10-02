@@ -1,0 +1,24 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="this.dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows,core"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-tabs selectedIndex="0" tabbarPlacement="top">
+    <ion-tab [root]="tab1Root" tabTitle="Login" tabIcon="contact" [rootParams]="tab1Params"></ion-tab>
+    <ion-tab [root]="tab2Root" tabTitle="Sign Up" tabIcon="construct" [rootParams]="tab2Params"></ion-tab>
+  </ion-tabs>
+</ion-content>

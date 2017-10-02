@@ -1,0 +1,60 @@
+<!--
+  Generated template for the AddModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Add Event
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="this.dismiss()">
+                <span ion-text color="primary" showWhen="ios">Cancel</span>
+                <ion-icon name="md-close" showWhen="android,windows,core"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label color="primary" stacked>Event Name</ion-label>
+        <ion-input type="text" placeholder="Event Name Input" [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary" stacked>Address</ion-label>
+        <ion-input type="text" placeholder="Address Input" [(ngModel)]="address" id="autocomplete"></ion-input>
+        <button ion-button item-right (click)="setCurrentLocation()"><ion-icon name="locate"></ion-icon></button>
+    </ion-item>
+    <!--<ion-grid style="width: 100%">-->
+        <!--<ion-row>-->
+        <!--<ion-col>-->
+            <!--<ion-label color="primary" stacked>Latitude</ion-label>-->
+            <!--<ion-input style="border-style: solid; border-width: 1px;" type="number" placeholder="latitude" [(ngModel)]="lat" id="lat" step=".00000001"></ion-input>-->
+        <!--</ion-col>-->
+        <!--<ion-col>-->
+            <!--<ion-label color="primary" stacked>Longitude</ion-label>-->
+            <!--<ion-input style="border-style: solid; border-width: 1px;" type="number" placeholder="Longitude" [(ngModel)]="lng" id="lng" step=".00000001"></ion-input>-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
+    <!--</ion-grid>-->
+    <ion-item>
+        <ion-label color="primary" stacked>Description</ion-label>
+        <ion-textarea type="text" placeholder="Description Input" [(ngModel)]="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-select *ngIf="getCategories()" [(ngModel)]="category" interface="popover">
+            <ion-option  *ngFor="let cat of getCategories()" value="{{cat}}">{{cat}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label *ngIf="isPublic">Public</ion-label>
+        <ion-label *ngIf="!isPublic">Private</ion-label>
+        <ion-toggle (ionChange)="isPublic = !isPublic"></ion-toggle>
+    </ion-item>
+    <!--TODO do start and end date for event-->
+    <button ion-button block (click)="this.submit()">SUBMIT</button>
+</ion-content>

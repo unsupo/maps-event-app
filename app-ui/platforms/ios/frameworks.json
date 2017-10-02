@@ -1,0 +1,15 @@
+{
+    "libz.tbd": 2,
+    "Accelerate.framework": 1,
+    "CoreData.framework": 1,
+    "CoreLocation.framework": 2,
+    "CoreTelephony.framework": 1,
+    "CoreText.framework": 1,
+    "GLKit.framework": 1,
+    "ImageIO.framework": 1,
+    "libc++.tbd": 1,
+    "OpenGLES.framework": 1,
+    "QuartzCore.framework": 1,
+    "SystemConfiguration.framework": 1,
+    "UIKit.framework": 1
+}

@@ -1,0 +1,8 @@
+.idea
+*.iml
+target
+node_modules
+www
+blog-app-server/src/main/resources/static/*
+examples
+untitled

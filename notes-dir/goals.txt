@@ -1,0 +1,77 @@
+Blog about making a blog.
+This first article is about how i got this blog up and going.  The steps i used to make the website from scratch
+and set up a home server to put it on the internet.
+I will use this blog for future posts on other how to's or things I learn.  This blog will hopefully be as helpful
+to me as it is for anyone else reading it.
+
+All code used to make this blog will be at my github account: https://github.com/unsupo
+
+First step is the make the website for the blog itself.  I could make it extremely simple, but as explained above
+this is as much for me as it is for you.  So, i'll use new technologies to make it and incorporate any ideas
+I can think of.
+
+I'd like the blog to be edited by me in the browser so i can do it anywhere without the need to open the code
+and commit changes, but all changes should be stored and saved preferably in my github account so any versioning
+can be tracked.
+
+Since many things in programming are on repeat, I'd like repeated processes to either have their own page with
+a link in the current project or an accordion style way to open it in the current project.
+
+The blog should be subdivided into languages then into projects.  So java, python, javascript, ect will all have
+their own "folders".  Some will be in multiple folders due to some projects needed more than one language.  I'll
+use metadata associated to each blog entry to assign it to folders automatically.  Once again all this should
+be done from the browser so i don't needed to edit any code once completed.
+
+A phone app would be helpful to me, but not exactly necessary.
+
+ionic 2 works perfectly for the web, phone, and PWA or native desktop apps, so that will be the technology of
+choice for the front end of the blog application.
+
+I'd like a login, but by default everything is view only.  If you log you have access to create, edit, and
+delete your blogs or blog entries.
+
+
+The blog entries will be stored locally? and encrypted?.
+Would be nice to store them on github for versioning and editing or maybe google docs.
+Does encrypted matter?
+
+Blog entries will use meta data so the app can search, sort, and subdivide them.
+Blog entries will have a title and description for use in ui cards.
+example:
+{
+  tags: ["java","blog","ionic"],
+  title: "building a blog",
+  description: "A blog entry about how this blog was made",
+  public: true,
+  content: {
+    type: "pdf"
+    location: "/entries/pdf/blog.pdf"
+  }
+}
+This example illustrates that a pdf on disk could be used.
+Maybe a txt file in a database to be used or content from a website
+or from github, or google docs, ect.
+I want this as versatile as possible.
+
+Maybe an image could be included as well or a default one if no image is provided.
+
+Maybe you could make a non admin profile and add delete create your own blog entries, maybe you could
+save other blogs you like or what to read for later.
+
+By default you don't need to sign in, and you'd be able to see public blog posts by people who make their
+posts public.
+
+Each blog has an eventId, so you can reference it in another blog.
+
+By default comments are turned on for blogs.
+
+When you search it'll first bring up results from cached content, but also check the server in the background
+
+Somehow blogs could be linked, so you can go from one to another (probably similar blog)
+Continuous scrolling so if you finish a blog entry you can keep scrolling down and another
+entry would appear, so no page loading would need to happen.
+Also points and leveling system would make it fun to read and complete blogs, optional if you log in.
+
+User voted for how good or bad a particular blog entry is.
+
+Potential wikipedia style, other users can edit and fix mistakes under certain conditions.

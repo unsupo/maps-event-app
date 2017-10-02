@@ -1,0 +1,20 @@
+page-home {
+  .itemBox{
+    backgrond-color: #6a7384;
+  }
+
+  #search {
+    background-color: rgba(0, 0, 0, 0.01);
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 40px;
+    margin-top: 5px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 40%;
+  }
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+}

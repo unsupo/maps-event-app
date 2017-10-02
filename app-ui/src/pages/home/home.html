@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+      It's Up to You
+    </ion-title>
+
+    <ion-buttons end>
+      <button *ngIf="!isLoggedIn()" color="primary" ion-button (click)="loginPopup()">LOG IN</button>
+      <button *ngIf="isLoggedIn()" color="primary" ion-button (click)="userProfilePopUp()">{{getUser().email}}</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-fab right bottom id="addFab">
+    <button ion-fab (click)="this.createAddModal()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+  <div id="search" style="white-space: nowrap; width: 50%;">
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box" style="width: 90%; height: 100%" [(ngModel)]="inputValue">
+    <button style="background-color: rgba(0, 0, 0, 0.01); padding-right: 0px; padding-left:0;" (click)="clearResults()" right>
+      <ion-icon name="close-circle" style="display: inline-block;"></ion-icon>
+    </button>
+  </div>
+
+  <div id="searchBox">
+    <ion-item color="dark">
+      <ion-label>Category</ion-label>
+      <ion-select *ngIf="getCategories()" [(ngModel)]="category" interface="popover" multiple="true">
+        <ion-option  *ngFor="let cat of getCategories()" value="{{cat}}">{{cat}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item color="dark">
+      <ion-label *ngIf="!isPublic">Private</ion-label>
+      <ion-label *ngIf="isPublic">Public</ion-label>
+      <ion-toggle (ionChange)="isPublic = !isPublic"></ion-toggle>
+    </ion-item>
+    <ion-item color="dark">
+      <ion-label color="primary" stacked>Search Events</ion-label>
+      <ion-input type="text" placeholder="Search Events" [(ngModel)]="searchEvents"></ion-input>
+    </ion-item>
+  </div>
+
+  <div id="mapm" style="height: 100%"></div>
+  <div id="signin-button"></div>
+
+  <!--<div *ngIf="plt.is('android') || plt.is('ios')" eventId="map" style="height: 90%">-->
+    <!--&lt;!&ndash;<p>{{this.currentLocation.latitude}}  ,  {{this.currentLocation.longitude}}</p>&ndash;&gt;-->
+  <!--</div>-->
+
+  <!--<ion-list no-lines eventId="chatRooms-list2" class="listv">-->
+    <!--<ion-list-header>-->
+      <!--Messages-->
+    <!--</ion-list-header>-->
+    <!--<ion-item *ngFor="let message of channelMessages" style="width: 100%">-->
+      <!--<p class="bubble left" *ngIf="message.sender === user"><span style="font-size:20px;">{{message.sender}}:</span><br>{{message.msg}}</p>-->
+      <!--<p class="bubble right" *ngIf="message.sender !== user"><span style="font-size:20px;">{{message.sender}}:</span><br>{{message.msg}}</p>-->
+    <!--</ion-item>-->
+  <!--</ion-list>-->
+  <!--<div>-->
+    <!--<input type="text" #msgInput name="" value="Type Your Message">-->
+    <!--<button (click)="this.sendMsg(msgInput.value)">Send</button>-->
+    <!--<br>-->
+    <!--&lt;!&ndash;<p>{{this.getMessage()}}</p>&ndash;&gt;-->
+  <!--</div>-->
+</ion-content>

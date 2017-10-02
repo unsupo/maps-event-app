@@ -1,0 +1,94 @@
+Steps:
+for this, wherever you start running these commands will have absolute path:
+  {user.dir}
+commit1=927b01546c88571cf97a8fd3206c5b7d06a8d976
+
+cd {user.dir};
+ionic start blogapp blank;
+  - this will build a blank ionic app to start with.
+    ionic cli commands
+    https://ionicframework.com/docs/cli/
+    ionic cli start commands
+    https://ionicframework.com/docs/cli/start/
+    the entire front end of the application will be in here.
+    it's only missing the ability to make PWAs, for this it needs a
+    file, electron.js.  And the package.json to have a "main": "electron.js"
+    property.
+
+  - Next a server to at the very least serve our webpage from a jar file.
+      for this make a new folder outside the blogapp folder, I call it
+      blog-app-server.  In this a src/main/java/app folders need to be created.
+//you should be in the {user.dir} directory after this command, but if not run:
+  cd {user.dir}
+
+mkdir -p blog-app-server/src/main/{java/app,resources/static};
+  - The -p switch builds all directories if they don't exist.
+      what's inside the curly brackets means at this location branch off by commas
+      so the structure after this command will look like:
+          blog-app-server
+            src
+              main
+                java
+                  app
+                resources
+                  static
+  - Next is needed the the pom file
+      create a pom.xml file: https://maven.apache.org/guides/introduction/introduction-to-the-pom.html
+      https://github.com/unsupo/blog-app/commit/{commit1}
+      blog-app-server/pom.xml
+      include spring boot start
+      https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-build-systems.html
+      as well as spring-boot-maven-plugin to build the jar needed.
+      using <java.version>1.8</java.version> so we can use java 8 features like lambdas in our code.
+  - Then an Application to start the spring server is needed.
+      https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started-first-application.html
+      This shows the minimalist files needed to create an application.
+
+cd {user.dir}/blog-app-server;
+mvn clean install -U;
+  - Run a mvn clean install -U in the blog-app-server directory
+      the clean means delete the target folder if it exists and the install is a maven
+      build step to build the project to the end.  The -U is an update command forces a check for missing releases
+      and update snapshots on remote repositories.
+      https://maven.apache.org/plugins/index.html
+      mvn -help shows a list of switches available to the mvn command.
+  - If everything goes right, a target folder will be automatically created with
+      a jar file in it named {artifactId}-{version}.jar
+      where {artifactId} and {version} are the tags in your pom.xml file.
+
+java -jar target/{artifactId}-{version}.jar;
+  - this command should successfully start the spring server.  The log should output:
+      Started Application in ...
+      At the end of the log.
+Press Ctrl+C on your keyboard to stop the server.
+
+cd {user.dir}/blogapp;
+npm install;
+ionic cordova build browser --optimizejs --minifycss --minifyjs --prod --release
+  - npm install installs all of ionics npm resources it needs if they don't exist.
+      it will install them in the node_modules directory.
+      ionic cordova build browser
+      https://ionicframework.com/docs/cli/cordova/build/
+      There are three ionic platforms, browser, ios, and android.
+      For now we will work with the browser.
+      at the linked docs page it explains what the switches provided does.
+  - This command will create a www folder at {user.dir}/blogapp/www
+      this folder houses everything spring needs to display a website.
+
+cp -R www/* {user.dir}/blog-app-server/src/main/resources/static;
+  - This copies everything below www folder into the static folder
+      so that spring can run and display your website.
+  - Run your jar file again and now, in a web browser go to:
+      localhost:8080/index.html
+      you should see a webpage with title Ionic Blank and other default content.
+  - Let's make a script to build and put the webpage contents where it needs to go.
+      in the pom.xml file in your server put the exec-maven-plugin
+      http://www.mojohaus.org/exec-maven-plugin/usage.html
+      This plugin allows a script to be executed before maven builds your project.
+      This script will build the website and copy into the static directory.
+      https://github.com/unsupo/blog-app/commit/{commit1}
+      scripts/package-app-browser.sh
+      make sure file has execute permissions with chmod +x package-app-browser.sh
+
+  - Now our basic app is ready.  It'll get built automatically into a packaged jar
+      which runs our website.

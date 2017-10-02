@@ -1,0 +1,36 @@
+[
+  {
+    "userId": "d4587ed1288248c39dabb0ad6949219f",
+    "firstName": "a",
+    "lastName": "b",
+    "emailAddress": "test",
+    "userGroup": "admin",
+    "sessionId": "3524278cc775422d9f8c48b9fe093752",
+    "password": "C5RJFfJHoI0\u003d",
+    "dateCreated": "Sep 12, 2017 4:58:13 PM",
+    "isVerified": false
+  },
+  {
+    "userId": "110063917175545099290",
+    "firstName": "Jonathan",
+    "lastName": "Arndt",
+    "emailAddress": "unsupo@gmail.com",
+    "imageUrl": "https://lh5.googleusercontent.com/-EhcJ4wBAmkE/AAAAAAAAAAI/AAAAAAAAEjE/gGSilKUhsXg/s96-c/photo.jpg",
+    "userGroup": "default",
+    "sessionId": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI4OGM4NDQ5Y2U2MDM4ZGEyYmVjYTU1MWRkNWI3ZmUxYThhNjAzYTIifQ.eyJhenAiOiI2Mjg1MzE1MTI5MjAtNWNoOTQ2NWplMzNqZXJzYXJnMDFlcWQxMTQ3dTdra20uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2Mjg1MzE1MTI5MjAtNWNoOTQ2NWplMzNqZXJzYXJnMDFlcWQxMTQ3dTdra20uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTAwNjM5MTcxNzU1NDUwOTkyOTAiLCJlbWFpbCI6InVuc3Vwb0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6Ikdud3l1QXZHVVp2SFlETjRNZHMybUEiLCJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiaWF0IjoxNTA1MjcyNTYwLCJleHAiOjE1MDUyNzYxNjAsIm5hbWUiOiJKb25hdGhhbiBBcm5kdCIsInBpY3R1cmUiOiJodHRwczovL2xoNS5nb29nbGV1c2VyY29udGVudC5jb20vLUVoY0o0d0JBbWtFL0FBQUFBQUFBQUFJL0FBQUFBQUFBRWpFL2dHU2lsS1Voc1hnL3M5Ni1jL3Bob3RvLmpwZyIsImdpdmVuX25hbWUiOiJKb25hdGhhbiIsImZhbWlseV9uYW1lIjoiQXJuZHQiLCJsb2NhbGUiOiJlbiJ9.bGb3Bg6bCcIQD4TCDI-CpaKW7OBuFVn6hXJmdOVD55gLHmW0X6PsNMyKJ4Jsqvst59ItbG73ak_ZC7L2eSZBhlAq39DDtyPJj2CVsfCi4NctK1vjbHNBCyihqjuOzyZgm_idQ4Fa8cNXUWRc5RIfhneawsQGuOaWGjNoWH61IjGx1VSBCmf2kmZ-67KTsK5I2COxSST9DxJQelWPsaWFix2h7NoKiisexQU5pfTpcPc6H_-33jHgBiSjNTyB7D7-Qf7UGp8ho813bjzJNR3BQvsxy71_vk5fyt_voHqo4CaiLeryV8F8tva57j-nUuQv5blbcHntGK0gjT0ae1dMpQ",
+    "locale": "en",
+    "isVerified": true
+  },
+  {
+    "userId": "c860709d6dd4426b8a2a6522b927b337",
+    "firstName": "a",
+    "lastName": "b",
+    "emailAddress": "testing",
+    "userGroup": "default",
+    "sessionId": "aab127c555d94c29842c4c08dd31f7c1",
+    "password": "C5RJFfJHoI0\u003d",
+    "locale": "en",
+    "dateCreated": "Sep 14, 2017 1:36:29 PM",
+    "isVerified": false
+  }
+]
