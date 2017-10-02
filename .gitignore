@@ -9,3 +9,4 @@ app-ui/platforms/*
 *.apk
 app-data.json
 user-data.json
+notes-dir
