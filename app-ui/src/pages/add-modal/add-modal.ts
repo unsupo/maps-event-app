@@ -30,7 +30,11 @@ export class AddModalPage {
     private address: string;
     private description: string;
     private category: string;
-    // private url: String = "http://localhost:8080";
+
+    private nameError: string;
+    private addressError: string;
+    private categoryError: string;
+    private error : string = "";
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private socketService: ChatService, private googleMapService : GoogleMapsService,
@@ -85,6 +89,8 @@ export class AddModalPage {
             console.log("No categories provided");
             return;
         }
+        //TODO this might be able to be inproved by caching the parsed list, not a big deal though
+        //TODO add timestamp to last gathered categories time.  Then update the list after a certain amount of time.
         var cats = JSON.parse(localStorage.getItem(Utility.categories));
         var c = [];
         for(var i in cats)
@@ -105,8 +111,42 @@ export class AddModalPage {
     }
 
     submit() {
-        if (!this.name || !this.loginService || !this.loginService.user || !this.loginService.user.token)
+        var err;
+        if(!this.name) { //checks if undefined, null, or empty
+            this.nameError = "Username must not be empty";
+            err=true;
+        }if(!this.address){ //checks if undefined, null, or empty
+            this.addressError = "Address must not be empty";
+            err=true;
+        }if(!this.currentLocation || !this.currentLocation.lat() || !this.currentLocation.lng()){ //checks if undefined, null, or empty
+            this.categoryError = "Address must not be empty";
+            err=true;
+        }if(!this.category){ //checks if undefined, null, or empty
+            this.categoryError = "Category must not be empty";
+            err=true;
+        }else{
+            var cats = Utility.getCategories();
+            var f = false;
+            for(var i in cats)
+                if(i == this.category)
+                    f = true;
+            if(!f){
+                this.categoryError="Invalid category";
+                err=true;
+            }
+        }
+        if(!this.loginService || !this.loginService.user || !this.loginService.user.token) {
+            this.error.concat("Login is invalid");
+            this.dismiss();
+            err=true;
+        }
+        if(!this.socketService){
+            this.error.concat("No connection to server");
+            err=true;
+        }
+        if(err)
             return;
+
         this.socketService.sendMessageWithDestination(
             JSON.stringify({
                 lat: this.currentLocation.lat(), lng: this.currentLocation.lng(),
@@ -115,13 +155,5 @@ export class AddModalPage {
             }),
             "/app/event");
         this.dismiss();
-        // var headers = new Headers();
-        // headers.set('eventName',this.name);
-        // headers.set('address',this.address);
-        //   headers.set('description',this.description);
-        // this.http.post(this.url.concat("/addEvent").toString(),"",{
-        //   headers: headers
-        // }).subscribe(res=>{},err=>{console.log(err)});
-
     }
 }

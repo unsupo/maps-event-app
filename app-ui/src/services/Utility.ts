@@ -16,7 +16,7 @@ export class Utility {
         });
     }
 
-    public static getCategories(){
+    public static getCategories() {
         if(!localStorage.getItem(Utility.categories)) {
             console.log("No categories provided");
             return;

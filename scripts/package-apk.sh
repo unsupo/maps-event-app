@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 dir=`pwd`;
 cd ../app-ui
-app=/Users/jarndt/code_projects/kevinapp/app-ui/platforms/android/build/outputs/apk/android-release-unsigned.apk;
+app="$dir/platforms/android/build/outputs/apk/android-release-unsigned.apk";
 apk=ItsUpToYou.apk
 rm -f $apk;
 ionic cordova build android --release --minifycss --minifyjs;
