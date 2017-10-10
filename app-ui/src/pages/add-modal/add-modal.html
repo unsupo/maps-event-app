@@ -21,11 +21,12 @@
 <ion-content padding>
     <ion-item>
         <ion-label color="primary" stacked>Event Name</ion-label>
-        <ion-input type="text" placeholder="Event Name Input" [(ngModel)]="name"></ion-input>
+        <ion-input type="text" placeholder="Event Name Input" required [(ngModel)]="name"></ion-input>
+        <!--<p *ngIf="myForm.controls['firstname'].errors && myForm.controls['firstname'].dirty ">-->
     </ion-item>
     <ion-item>
         <ion-label color="primary" stacked>Address</ion-label>
-        <ion-input type="text" placeholder="Address Input" [(ngModel)]="address" id="autocomplete"></ion-input>
+        <ion-input type="text" placeholder="Address Input" [(ngModel)]="address" id="autocomplete" required></ion-input>
         <button ion-button item-right (click)="setCurrentLocation()"><ion-icon name="locate"></ion-icon></button>
     </ion-item>
     <!--<ion-grid style="width: 100%">-->

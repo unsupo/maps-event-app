@@ -5,4 +5,8 @@ node_modules
 www
 blog-app-server/src/main/resources/static/*
 examples
-untitled
+app-ui/platforms/
+*.apk
+app-data.json
+user-data.json
+notes-dir
