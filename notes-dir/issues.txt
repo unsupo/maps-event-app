@@ -1,9 +1,0 @@
-Issues:
-Issue, notes1.txt - Unable to parse configuration of mojo
-    org.apache.maven.plugins:maven-shade-plugin:3.1.0:shade
-    for parameter resource: Cannot find 'resource' in class
-    org.apache.maven.plugins.shade.resource.ManifestResourceTransformer
-    fix -
-      in pom, accidentally had
-      	<packaging>pom</packaging>
-      in the server's pom file.
