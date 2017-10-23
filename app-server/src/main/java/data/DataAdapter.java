@@ -128,7 +128,7 @@ public class DataAdapter {
         });
     }
 
-    public static void writeEvent(Event event) {
+    public static boolean writeEvent(Event event) {
         //Elasticsearch stores user for quick searches
         Event ev = event;
         try {
@@ -137,12 +137,12 @@ public class DataAdapter {
             if (ev == null) {
                 getInstance().elasticsearchInsert("app-events", "event", event.getEventId(), FileOptions.getGson().toJson(event));
                 ev = event;
-            }
+            }else
+                return false;
         } catch (Exception e) {
             e.printStackTrace();
         }
         final Event event1 = ev;
-
         FileOptions.runConcurrentProcessNonBlocking(() -> {
             try {
                 databaseEvent(event1);
@@ -151,6 +151,7 @@ public class DataAdapter {
             }
             return null;
         });
+        return true;
     }
 
     public static void updateEvent(Event ev) throws InterruptedException, ExecutionException, IOException {

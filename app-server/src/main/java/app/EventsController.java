@@ -91,10 +91,25 @@ public class EventsController {
 
     public static String updateEventByObj(HashMap<String,String> map) throws Exception {
         checkForNullOrEmpty(Arrays.asList("eventId"),map);
+        if(!Category.getAllCategories().contains(new Category(map.get("category"))))
+            throw new Exception("Category is not valid: "+map.get("category"));
         GetResponse v = DataAdapter.getInstance().elasticsearchSearch("app-events", "event", map.get("eventId"));
         if(!v.isExists())
             throw new Exception("Event does not exist with id: "+map.get("eventId"));
         Event e = FileOptions.getGson().fromJson(v.getSourceAsString(),Event.class);
+        Event event = FileOptions.getGson().fromJson(FileOptions.getGson().toJson(map),Event.class);
+        if(map.containsKey("lat"))
+            e.setLat(Double.parseDouble(map.get("lat")));
+        if(map.containsKey("lng"))
+            e.setLng(Double.parseDouble(map.get("lng")));
+        if(map.containsKey("isPublic"))
+            e.setPublic(event.isPublic());
+        if(map.containsKey("address"))
+            e.setAddress(event.getAddress());
+        if(map.containsKey("eventName") && !map.get("eventName").isEmpty())
+            e.setEventName(event.getEventName());
+        if(map.containsKey("category"))
+            e.setCategory(event.getCategory());
         DataAdapter.updateEvent(e);
         User user = UserAdapter.getUserByToken(map.get("token"));
         return FileOptions.getGson().toJson(getPublicAndUserEvents(user.getUserId()));
@@ -108,7 +123,8 @@ public class EventsController {
     }
 
     public static String addEventByObj(HashMap<String,String> map) throws Exception {
-        checkForNullOrEmpty(Arrays.asList("eventName","address","lat","lng","category"),map);
+        //IT GETS HERE
+        checkForNullOrEmpty(Arrays.asList("eventName","address","lat","lng","category","isPublic"),map);
         User user = UserAdapter.getUserByToken(map.get("token"));
         if(!Category.getAllCategories().contains(new Category(map.get("category"))))
             throw new Exception("Category is not valid: "+map.get("category"));
@@ -118,7 +134,8 @@ public class EventsController {
         Event event = FileOptions.getGson().fromJson(FileOptions.getGson().toJson(map),Event.class);
         event.setLat(Double.parseDouble(map.get("lat")));
         event.setLng(Double.parseDouble(map.get("lng")));
-        DataAdapter.writeEvent(event);
+        if(!DataAdapter.writeEvent(event))
+            throw new Exception("Event already exists");
         return FileOptions.getGson().toJson(getPublicAndUserEvents(user.getUserId()));
     }
 
@@ -153,7 +170,7 @@ public class EventsController {
         return Arrays.asList(
                         DataAdapter.getInstance().getClient().prepareSearch("app-events").setTypes("event").setQuery(
                                 new BoolQueryBuilder()
-                                        .must(QueryBuilders.matchQuery("userIdCreated",userId))
+                                        .should(QueryBuilders.matchQuery("userIdCreated",userId))
                                         .should(QueryBuilders.matchQuery("isPublic","true"))
                         ).get().getHits().getHits()
                 ).stream().map(a->FileOptions.getGson().fromJson(a.getSourceAsString(),Event.class)).collect(Collectors.toList());
@@ -164,5 +181,4 @@ public class EventsController {
             if(!map.containsKey(s) || map.get(s) == null || map.get(s).isEmpty())
                 throw new Exception(s+": is null or empty");
     }
-
 }

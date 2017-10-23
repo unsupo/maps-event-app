@@ -47,8 +47,8 @@ export class ChatService {
         if (typeof res != 'object')
             json = JSON.parse(res);
         for (var i in json)
-            if (!this.objs.has(i))
-                this.objs.set(i, new EventObj(i, json[i], this.home, this.googleMapService));
+            if (!this.objs.has(json[i]['eventId']))
+                this.objs.set(json[i]['eventId'], new EventObj(json[i]['eventId'], json[i], this.home, this.googleMapService));
     }
 
 

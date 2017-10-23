@@ -31,6 +31,10 @@ export class LoginPage {
 
     // private myClientId: string = '628531512920-5ch9465je33jersarg01eqd1147u7kkm.apps.googleusercontent.com';
 
+    ngOnDestroy(){
+        this.subscription.unsubscribe();
+    }
+
     ionViewDidLoad() {
         console.log('ionViewDidLoad LoginpagePage');
     }

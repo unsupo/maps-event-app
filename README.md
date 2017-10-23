@@ -4,6 +4,10 @@ converted to a native app, ios app, website, and android app.
 
 The spring server displays the website on an https server.  
 
+mvn clean install -U
+
+to build the server and ui and package it into a runnable jar in the server/target folder.
+
 # maps-event-app
 
 

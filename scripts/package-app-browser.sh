@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 v=`pwd`;
-st=$v/src/main/resources/static;
+st=$v/../app-server/src/main/resources/static;
 ap=$v/../app-ui;
 
 rm -rf $st 2>/dev/null;

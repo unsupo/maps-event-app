@@ -21,13 +21,14 @@
 <ion-content padding>
     <ion-item>
         <ion-label color="primary" stacked>Event Name</ion-label>
-        <ion-input type="text" placeholder="Event Name Input" required [(ngModel)]="name"></ion-input>
-        <!--<p *ngIf="myForm.controls['firstname'].errors && myForm.controls['firstname'].dirty ">-->
+        <ion-input type="text" placeholder="Event Name Input" required [(ngModel)]="name" (click)="nameError=null"></ion-input>
+        <ion-label color="danger" *ngIf="nameError" stacked style=".item-label-stacked .input-wrapper, .input-wrapper { flex-direction: column-reverse;}">{{nameError}}</ion-label>
     </ion-item>
     <ion-item>
         <ion-label color="primary" stacked>Address</ion-label>
-        <ion-input type="text" placeholder="Address Input" [(ngModel)]="address" id="autocomplete" required></ion-input>
+        <ion-input type="text" placeholder="Address Input" [(ngModel)]="address" id="autocomplete" required (click)="addressError=null"></ion-input>
         <button ion-button item-right (click)="setCurrentLocation()"><ion-icon name="locate"></ion-icon></button>
+        <ion-label color="danger" *ngIf="addressError" stacked style="flex-direction: column-reverse">{{addressError}}</ion-label>
     </ion-item>
     <!--<ion-grid style="width: 100%">-->
         <!--<ion-row>-->
@@ -45,17 +46,19 @@
         <ion-label color="primary" stacked>Description</ion-label>
         <ion-textarea type="text" placeholder="Description Input" [(ngModel)]="description"></ion-textarea>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="categoryError=null">
         <ion-label>Category</ion-label>
         <ion-select *ngIf="getCategories()" [(ngModel)]="category" interface="popover">
             <ion-option  *ngFor="let cat of getCategories()" value="{{cat}}">{{cat}}</ion-option>
         </ion-select>
+        <ion-label color="danger" *ngIf="categoryError" stacked style="flex-direction: column-reverse">{{categoryError}}</ion-label>
     </ion-item>
     <ion-item>
         <ion-label *ngIf="isPublic">Public</ion-label>
         <ion-label *ngIf="!isPublic">Private</ion-label>
         <ion-toggle (ionChange)="isPublic = !isPublic"></ion-toggle>
     </ion-item>
+    <ion-label color="danger" *ngIf="error" stacked style="flex-direction: column-reverse">{{error}}</ion-label>
     <!--TODO do start and end date for event-->
     <button ion-button block (click)="this.submit()">SUBMIT</button>
 </ion-content>

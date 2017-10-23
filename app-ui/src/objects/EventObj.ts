@@ -5,6 +5,9 @@ import {Utility} from "../services/Utility";
 export class EventObj{
     public name:string;
     public address:string;
+    public eventId:string;
+    public category:string;
+    public userIdCreated:string;
     public description: string;
     public usersGoing: Array<number> = [];
     public marker: google.maps.Marker;
@@ -12,10 +15,12 @@ export class EventObj{
     public geocoder: google.maps.Geocoder;
     public infoWindow: google.maps.InfoWindow;
 
-    constructor(name: string, json: any, public home: HomePage, private googleMapService : GoogleMapsService){
-
+    constructor(eventId: string, json: any, public home: HomePage, private googleMapService : GoogleMapsService){
+        this.eventId=eventId;
+        this.userIdCreated=json['userIdCreated'];
         this.geocoder = new google.maps.Geocoder();
         this.name = name;
+        this.category=json['category'];
         this.address = json['address'].replace("\n","");
         if(this.address.slice(0,1) == "(")
             this.address = this.address.slice(1);
@@ -24,7 +29,7 @@ export class EventObj{
 
         this.position = null;
         if(json['location'] && json['location'].coordinates && json['location'].coordinates.length == 2)
-            this.position = new google.maps.LatLng(json['location'].coordinates[0],json['location'].coordinates[1]);
+            this.position = new google.maps.LatLng(json['location'].coordinates[1],json['location'].coordinates[0]);
 
         this.marker = new google.maps.Marker({
             animation: google.maps.Animation.DROP,
@@ -44,6 +49,7 @@ export class EventObj{
                         cc = Utility.getHost().concat('/image?imagePath=' + encodeURI(c[i]["url"].replace("res:","")));
                     else
                         cc = c[i]["url"];
+                    console.log('icon set for: '+this.name+' is: '+cc);
                     break;
                 }
             this.marker = new google.maps.Marker({
@@ -56,6 +62,7 @@ export class EventObj{
             });
         }
         if(!this.position) {
+            console.log('no position, geocoding address: '+this.address);
             this.position = new google.maps.LatLng(0,0);
             this.geocoder.geocode({'address': this.address}, (results, status) => {
                 if (status == google.maps.GeocoderStatus.OK) {

@@ -28,7 +28,7 @@ import static app.EventsController.*;
 @RequestMapping("/")
 @CrossOrigin
 public class AppController {
-    private final String ruid = "jkasdjflllk34280234dfsljk0808923rpiojpj";
+    public static final String ruid = "jkasdjflllk34280234dfsljk0808923rpiojpj";
     private static final String TABLE_NAME = "app-data";
 
     public static HashMap<String,Event> getAllEvents(){

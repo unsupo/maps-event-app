@@ -30,10 +30,11 @@ export class AddModalPage {
     private address: string;
     private description: string;
     private category: string;
+    private isPublic: boolean = true;
 
-    private nameError: string;
-    private addressError: string;
-    private categoryError: string;
+    private nameError: string = null;
+    private addressError: string = null;
+    private categoryError: string = null;
     private error : string = "";
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -47,6 +48,9 @@ export class AddModalPage {
         var setName = navParams.get('setName');
         if(setName)
             this.name = setName;
+        if(!this.currentLocation || !this.currentLocation.lat() || !this.currentLocation.lng()) { //checks if undefined, null, or empty
+            this.address = "CURRENT_LOCATION";
+        }
     }
     initialized(autocomplete: any) {
         this.autocomplete = autocomplete;
@@ -115,20 +119,27 @@ export class AddModalPage {
         if(!this.name) { //checks if undefined, null, or empty
             this.nameError = "Username must not be empty";
             err=true;
-        }if(!this.address){ //checks if undefined, null, or empty
+        }else
+            this.nameError = null;
+        if(!this.address){ //checks if undefined, null, or empty
             this.addressError = "Address must not be empty";
             err=true;
-        }if(!this.currentLocation || !this.currentLocation.lat() || !this.currentLocation.lng()){ //checks if undefined, null, or empty
-            this.categoryError = "Address must not be empty";
-            err=true;
-        }if(!this.category){ //checks if undefined, null, or empty
+        }else
+            this.addressError = null;
+        // if(!this.currentLocation || !this.currentLocation.lat() || !this.currentLocation.lng()){ //checks if undefined, null, or empty
+        //     this.addressError = "Address must not be empty";
+        //     err=true;
+        // }else
+        //     this.addressError = null;
+        if(!this.category){ //checks if undefined, null, or empty
             this.categoryError = "Category must not be empty";
             err=true;
         }else{
+            this.categoryError=null;
             var cats = Utility.getCategories();
             var f = false;
             for(var i in cats)
-                if(i == this.category)
+                if(cats[i] === this.category)
                     f = true;
             if(!f){
                 this.categoryError="Invalid category";
@@ -136,22 +147,26 @@ export class AddModalPage {
             }
         }
         if(!this.loginService || !this.loginService.user || !this.loginService.user.token) {
-            this.error.concat("Login is invalid");
+            this.error = this.error.concat("Login is invalid");
+            this.loginService.logOut();
             this.dismiss();
             err=true;
         }
         if(!this.socketService){
-            this.error.concat("No connection to server");
+            this.error = this.error.concat("No connection to server");
             err=true;
         }
-        if(err)
+        if(err) {
+            console.log(this.error);
             return;
+        }
+        this.nameError=null; this.categoryError = null; this.addressError = null; this.error = "";
 
         this.socketService.sendMessageWithDestination(
             JSON.stringify({
                 lat: this.currentLocation.lat(), lng: this.currentLocation.lng(),
                 eventName: this.name, address: this.address, description: this.description,
-                token: this.loginService.user.token, category: this.category
+                token: this.loginService.user.token, category: this.category, isPublic: this.isPublic
             }),
             "/app/event");
         this.dismiss();

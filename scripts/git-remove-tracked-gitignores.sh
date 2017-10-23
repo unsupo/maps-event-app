@@ -10,3 +10,6 @@ while IFS= read -r var; do
     done;
 done < ".gitignore"
 cd $curDir;
+
+#TODO add the following somehow
+#git filter-branch --index-filter 'git rm --force --cached -r --ignore-unmatch app-ui/platforms' HEAD
