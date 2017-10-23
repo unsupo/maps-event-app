@@ -3,6 +3,8 @@ import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angula
 import {LoginPage} from "../login/login";
 import {LoginService} from "../../services/LoginService";
 import {User} from "../../services/User";
+import {Observable} from "rxjs/Observable";
+import {Subscription} from "rxjs/Subscription";
 
 
 /**
@@ -19,6 +21,7 @@ import {User} from "../../services/User";
     templateUrl: 'loginpage.html',
 })
 export class LoginpagePage {
+    private subscription: Subscription;
     private email : string = "";
     private password : string = "";
 
@@ -28,6 +31,18 @@ export class LoginpagePage {
         this.parent = navParams.get('login');
     }
     private myClientId: string = '628531512920-5ch9465je33jersarg01eqd1147u7kkm.apps.googleusercontent.com';
+
+
+    ngOnInit(){
+        this.subscription = Observable.fromEvent(document,'keypress').subscribe((e:KeyboardEvent)=>{
+            if(e.key == "Enter")
+                this.submitLogin();
+        });
+    }
+
+    ngOnDestroy(){
+        this.subscription.unsubscribe();
+    }
 
     initGoogleLogin(){
         gapi.signin2.render('my-signin2', {
