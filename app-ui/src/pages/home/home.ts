@@ -128,6 +128,11 @@ export class HomePage {
         }
     }
 
+
+    public logout() {
+        this.loginService.logOut();
+    }
+
     loading: boolean = true;
     auth2: any;
 

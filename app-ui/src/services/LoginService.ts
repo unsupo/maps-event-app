@@ -179,6 +179,6 @@ export class LoginService{
     public logOut() : void {
         this.user = null;
         this.isLoggedIn = false;
-        localStorage.removeItem(Utility.user);
+        localStorage.clear();
     }
 }
